@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background: #030712;
+    --surface: #0d1117;
+    --surface-2: #161b22;
+    --border: rgba(0, 255, 136, 0.08);
+    --border-2: rgba(0, 255, 136, 0.15);
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted: #484f58;
+    --accent: #00ff88;
+    --accent-glow: rgba(0, 255, 136, 0.4);
+    --font-display: 'Syne', system-ui, sans-serif;
+    --font-geist: 'Syne', system-ui, sans-serif;
+    --font-geist-mono: 'Space Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-primary);
+    font-family: var(--font-geist);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 136, 0.2);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 255, 136, 0.4);
+}
+
+/* Selection */
+::selection {
+    background: rgba(0, 255, 136, 0.2);
+    color: var(--text-primary);
+}
+
+/* Grid background */
+.bg-grid {
+    background-image: linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* Glow effects */
+.glow-accent {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.15), 0 0 40px rgba(0, 255, 136, 0.05);
+}
+
+.glow-text {
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.glow-border {
+    box-shadow: inset 0 0 0 1px rgba(0, 255, 136, 0.2), 0 0 20px rgba(0, 255, 136, 0.05);
+}
+
+/* Risk colors */
+.risk-critical {
+    color: #ef4444;
+}
+
+.risk-high {
+    color: #f97316;
+}
+
+.risk-medium {
+    color: #eab308;
+}
+
+.risk-low {
+    color: #22c55e;
+}
+
+.risk-unknown {
+    color: #6b7280;
+}
+
+.risk-bg-critical {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.risk-bg-high {
+    background-color: rgba(249, 115, 22, 0.1);
+    border-color: rgba(249, 115, 22, 0.3);
+}
+
+.risk-bg-medium {
+    background-color: rgba(234, 179, 8, 0.1);
+    border-color: rgba(234, 179, 8, 0.3);
+}
+
+.risk-bg-low {
+    background-color: rgba(34, 197, 94, 0.1);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.risk-bg-unknown {
+    background-color: rgba(107, 114, 128, 0.1);
+    border-color: rgba(107, 114, 128, 0.3);
+}
+
+/* Scan animation */
+.scan-overlay {
+    position: relative;
+    overflow: hidden;
+}
+
+.scan-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00ff88, transparent);
+    animation: scanLine 2s linear infinite;
+}
+
+@keyframes scanLine {
+    0% {
+        top: 0%;
+    }
+
+    100% {
+        top: 100%;
+    }
+}
+
+/* Skeleton loading */
+.skeleton {
+    background: linear-gradient(90deg,
+            var(--surface) 25%,
+            var(--surface-2) 50%,
+            var(--surface) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.5s ease-in-out infinite;
+    border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Card hover */
+.card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+    border-color: rgba(0, 255, 136, 0.25);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.08);
+    transform: translateY(-2px);
+}
+
+/* Input focus */
+.input-glow:focus {
+    outline: none;
+    border-color: rgba(0, 255, 136, 0.5);
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1), 0 0 20px rgba(0, 255, 136, 0.1);
+}
+
+/* Monospace elements */
+.font-mono {
+    font-family: var(--font-geist-mono) !important;
+}
+
+/* Terminal effect */
+.terminal-text::after {
+    content: '|';
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
