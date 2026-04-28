@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.middleware.trustedhost import TrustedHostMiddleware
+from fastapi.responses import RedirectResponse  # Redirect ke liye add kiya
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
@@ -20,15 +20,30 @@ app = FastAPI(
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
+# CORS Settings: Settings se origins uthayega, agar empty ho toh sab allow kar dega (testing ke liye)
+origins = getattr(settings, "ALLOWED_ORIGINS", ["*"])
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_ORIGINS,
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Routers
+# --- ROUTES ---
+
+# 1. Base Route: Ab 404 nahi aayega, ye direct Docs pe le jayega
+@app.get("/")
+async def root():
+    return RedirectResponse(url="/api/docs")
+
+# 2. Health Check
+@app.get("/api/health")
+async def health_check():
+    return {"status": "healthy", "version": "1.0.0"}
+
+# 3. API Routers
 app.include_router(scan.router, prefix="/api/v1", tags=["Full Scan"])
 app.include_router(ssl.router, prefix="/api/v1/ssl", tags=["SSL Inspector"])
 app.include_router(vulnerabilities.router, prefix="/api/v1/vulnerabilities", tags=["Vulnerability Scanner"])
@@ -39,7 +54,3 @@ app.include_router(ports.router, prefix="/api/v1/ports", tags=["Port Scanner"])
 app.include_router(wayback.router, prefix="/api/v1/wayback", tags=["Wayback Machine"])
 app.include_router(whois.router, prefix="/api/v1/whois", tags=["WHOIS History"])
 app.include_router(blacklist.router, prefix="/api/v1/blacklist", tags=["Blacklist History"])
-
-@app.get("/api/health")
-async def health_check():
-    return {"status": "healthy", "version": "1.0.0"}

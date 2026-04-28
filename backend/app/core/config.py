@@ -15,11 +15,17 @@ class Settings(BaseSettings):
     CACHE_TTL: int = 600
 
     # API Keys
-    VIRUSTOTAL_API_KEY: str = ""
-    GOOGLE_SAFE_BROWSING_API_KEY: str = ""
+    VIRUSTOTAL_API_KEY: str = "97f72e94b54287dd1e2b40d07f0b06760a7670f56802a08e2a12734858490f21"
+    GOOGLE_SAFE_BROWSING_API_KEY: str = "AIzaSyCZktkpwEILHgBg3gsqo0kI_1Xln80RxQ"
 
     # CORS
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:3000", "http://127.0.0.1:3000"]
+    ALLOWED_ORIGINS: List[str] = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "https://websecuritytool.vercel.app",           # Vercel Frontend
+        "https://web-security-toolkit.onrender.com",    # Render Backend
+        "https://websecuritytool.onrender.com",         # Agar alag naam hai toh yeh bhi add kar do
+    ]
 
     # Rate Limiting
     RATE_LIMIT: str = "30/minute"
