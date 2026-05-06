@@ -96,7 +96,7 @@ export default function Home() {
                         </div>
                         <div>
                             <span className="font-display text-white font-bold text-lg tracking-tight">WSIT</span>
-                            <span className="hidden sm:inline text-[#8b949e] text-sm ml-2">Web Security Intelligence Toolkit</span>
+                            <span className="hidden sm:inline text-[#8b949e] text-sm ml-2">Web Security Intelligence</span>
                         </div>
                     </motion.div>
                     <motion.div
@@ -411,7 +411,7 @@ export default function Home() {
             <footer className="relative z-10 border-t border-[rgba(0,255,136,0.06)] py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
                     <p className="text-[#484f58] text-xs font-mono">
-                        © 2024 Web Security Intelligence Toolkit · For authorized security testing only
+                        © 2024 Web Security Intelligence · For authorized security testing only
                     </p>
                     <div className="flex items-center gap-4 text-[#484f58] text-xs font-mono">
                         <span>FastAPI + Next.js</span>
